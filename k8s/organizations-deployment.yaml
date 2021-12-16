@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: organizations-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: organizations
+  template:
+    metadata:
+      labels:
+        app: organizations
+    spec:
+      containers:
+        - image: jbozic04/badminton-app-organizations
+          name: organizations
+          ports:
+            - containerPort: 8080
+              name: server
+              protocol: TCP
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: organizations
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: server
+  selector:
+    app: organizations

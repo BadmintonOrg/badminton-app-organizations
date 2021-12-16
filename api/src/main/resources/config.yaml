@@ -12,9 +12,21 @@ kumuluzee:
       connection-url: jdbc:postgresql://database-1.ctekqcytce4y.eu-central-1.rds.amazonaws.com/badminton
       username: postgres
       password: postgres
+  health:
+    checks:
+      data-source-health-check:
+        type: liveness
+        jndi-name: jdbc/BadmintonAppUsersDS
+      disk-space-health-check:
+        threshold: 100000000
+  config:
+    consul:
+      agent: http://20.81.103.210:8500/
+
   metrics:
     web-instrumentation:
       - name: organizations-endpoint
         url-pattern: /v1/organizations/*
 rest-properties:
   maintenance-mode: false
+  broken: false

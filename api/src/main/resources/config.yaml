@@ -12,5 +12,9 @@ kumuluzee:
       connection-url: jdbc:postgresql://database-1.ctekqcytce4y.eu-central-1.rds.amazonaws.com/badminton
       username: postgres
       password: postgres
+  metrics:
+    web-instrumentation:
+      - name: organizations-endpoint
+        url-pattern: /v1/organizations/*
 rest-properties:
   maintenance-mode: false

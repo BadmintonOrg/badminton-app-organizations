@@ -19,9 +19,21 @@ kumuluzee:
         jndi-name: jdbc/BadmintonAppUsersDS
       disk-space-health-check:
         threshold: 100000000
+      etcd-health-check:
+        connection-url: http://20.85.253.39:2379/health
+
   config:
-    consul:
-      agent: http://20.81.103.210:8500/
+    start-retry-delay-ms: 500
+    max-retry-delay-ms: 900000
+    etcd:
+      hosts: http://20.85.253.39:2379
+
+  discovery:
+    cluster: 1
+    etcd:
+      hosts: http://20.85.253.39:2379
+      ttl: 30
+      ping-interval: 5
 
   metrics:
     web-instrumentation:

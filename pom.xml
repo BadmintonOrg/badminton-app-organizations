@@ -28,6 +28,11 @@
         <kumuluzee-openapi-mp.version>1.4.0</kumuluzee-openapi-mp.version>
 
         <postgresql.version>42.3.0</postgresql.version>
+
+        <kumuluzee-discovery.version>1.1.1</kumuluzee-discovery.version>
+        <kumuluzee-metrics.version>2.3.0</kumuluzee-metrics.version>
+        <kumuluzee-config-mp.version>1.4.1</kumuluzee-config-mp.version>
+        <kumuluzee-health.version>2.4.2</kumuluzee-health.version>
     </properties>
 
     <dependencyManagement>
@@ -46,11 +51,34 @@
                 <version>${kumuluzee-rest.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.kumuluz.ee.discovery</groupId>
+                <artifactId>kumuluzee-discovery-etcd</artifactId>
+                <version>${kumuluzee-discovery.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>com.kumuluz.ee.config</groupId>
-                <artifactId>kumuluzee-config-consul</artifactId>
+                <artifactId>kumuluzee-config-etcd</artifactId>
                 <version>${kumuluzee-config.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kumuluz.ee.metrics</groupId>
+                <artifactId>kumuluzee-metrics-core</artifactId>
+                <version>${kumuluzee-metrics.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kumuluz.ee.config</groupId>
+                <artifactId>kumuluzee-config-mp</artifactId>
+                <version>${kumuluzee-config-mp.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kumuluz.ee.health</groupId>
+                <artifactId>kumuluzee-health</artifactId>
+                <version>${kumuluzee-health.version}</version>
             </dependency>
 
             <dependency>

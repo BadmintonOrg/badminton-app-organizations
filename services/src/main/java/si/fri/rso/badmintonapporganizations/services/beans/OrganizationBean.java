@@ -2,6 +2,12 @@ package si.fri.rso.badmintonapporganizations.services.beans;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
+import org.eclipse.microprofile.metrics.Counter;
+import org.eclipse.microprofile.metrics.Histogram;
+import org.eclipse.microprofile.metrics.ConcurrentGauge;
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Metric;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import si.fri.rso.badmintonapporganizations.lib.Organization;
 import si.fri.rso.badmintonapporganizations.models.converters.OrganizationConverter;
 import si.fri.rso.badmintonapporganizations.models.entities.OrganizationEntity;
@@ -15,6 +21,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+
 @RequestScoped
 public class OrganizationBean {
 
@@ -23,6 +30,20 @@ public class OrganizationBean {
     @Inject
     private EntityManager em;
 
+
+    @Inject
+    @Metric(name = "organization_name_histogram")
+    Histogram histogram;
+
+    @Inject
+    @Metric(name = "relative_new_organizations")
+    private ConcurrentGauge relative_new_organization;
+
+    @Inject
+    @Metric(name = "change_organization_counter")
+    private Counter counter_change;
+
+    @Timed(name = "get_all_organizations_timed")
     public List<Organization> getOrganizations(UriInfo uriInfo) {
 
         QueryParameters queryParameters = QueryParameters.query(uriInfo.getRequestUri().getQuery()).defaultOffset(0)
@@ -31,6 +52,8 @@ public class OrganizationBean {
         return JPAUtils.queryEntities(em, OrganizationEntity.class, queryParameters).stream()
                 .map(OrganizationConverter::toDto).collect(Collectors.toList());
     }
+
+
 
     public Organization getOrganization(Integer id) {
 
@@ -61,6 +84,8 @@ public class OrganizationBean {
         if (organizationEntity.getId() == null) {
             throw new RuntimeException("Entity was not persisted");
         }
+        relative_new_organization.inc();
+        histogram.update(organizationEntity.getName().length());
 
         return OrganizationConverter.toDto(organizationEntity);
     }
@@ -82,10 +107,11 @@ public class OrganizationBean {
         else {
             return false;
         }
-
+        relative_new_organization.dec();
         return true;
     }
 
+    @Counted(name = "organization_delete_counter")
     public Organization putOrganization(Integer id, Organization org) {
 
         OrganizationEntity c = em.find(OrganizationEntity.class, id);
@@ -105,7 +131,7 @@ public class OrganizationBean {
         catch (Exception e) {
             rollbackTx();
         }
-
+        counter_change.inc(1);
         return OrganizationConverter.toDto(updatedOrganizationEntity);
     }
 

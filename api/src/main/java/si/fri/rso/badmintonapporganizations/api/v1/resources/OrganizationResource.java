@@ -134,7 +134,7 @@ public class OrganizationResource {
     public Response putOrganization(@Parameter(description = "Organization ID.", required = true)
                                         @PathParam("organizationId") Integer orgId,
                                     @RequestBody(
-                                            description = "DTO object with reservation data.",
+                                            description = "DTO object with organization data.",
                                             required = true, content = @Content(
                                             schema = @Schema(implementation = Organization.class))) Organization org){
 

@@ -1,5 +1,6 @@
 package si.fri.rso.badmintonapporganizations.api.v1.resources;
 
+import com.kumuluz.ee.cors.annotations.CrossOrigin;
 import si.fri.rso.badmintonapporganizations.services.config.RestProperties;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -16,6 +17,7 @@ import java.util.logging.Logger;
 @Path("/demo")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@CrossOrigin(supportedMethods = "GET, POST, HEAD, DELETE, OPTIONS")
 public class BreakerResource {
     private Logger log = Logger.getLogger(BreakerResource.class.getName());
 

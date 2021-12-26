@@ -29,6 +29,8 @@
 
         <postgresql.version>42.3.0</postgresql.version>
 
+        <kumuluzee-logs.version>1.4.2</kumuluzee-logs.version>
+        <kumuluzee-cors.version>1.0.6</kumuluzee-cors.version>
         <kumuluzee-discovery.version>1.1.1</kumuluzee-discovery.version>
         <kumuluzee-metrics.version>2.3.0</kumuluzee-metrics.version>
         <kumuluzee-config-mp.version>1.4.1</kumuluzee-config-mp.version>
@@ -61,6 +63,23 @@
                 <groupId>com.kumuluz.ee.config</groupId>
                 <artifactId>kumuluzee-config-etcd</artifactId>
                 <version>${kumuluzee-config.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kumuluz.ee.cors</groupId>
+                <artifactId>kumuluzee-cors</artifactId>
+                <version>${kumuluzee-cors.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kumuluz.ee.logs</groupId>
+                <artifactId>kumuluzee-logs-common</artifactId>
+                <version>${kumuluzee-logs.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>kumuluzee-logs-log4j2</artifactId>
+                <groupId>com.kumuluz.ee.logs</groupId>
+                <version>${kumuluzee-logs.version}</version>
             </dependency>
 
             <dependency>

@@ -29,7 +29,7 @@ public class BreakerResource {
     public Response makeUnhealthy() {
 
         restProperties.setBroken(true);
-
+        log.info("API is now broken.");
         return Response.status(Response.Status.OK).build();
     }
 }

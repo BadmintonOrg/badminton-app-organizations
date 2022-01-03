@@ -111,7 +111,7 @@ public class OrganizationBean {
         return true;
     }
 
-    @Counted(name = "organization_delete_counter")
+
     public Organization putOrganization(Integer id, Organization org) {
 
         OrganizationEntity c = em.find(OrganizationEntity.class, id);

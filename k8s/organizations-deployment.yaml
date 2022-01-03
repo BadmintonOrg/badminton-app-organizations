@@ -13,7 +13,7 @@ spec:
         app: organizations
     spec:
       containers:
-        - image: jbozic04/badminton-app-organizations
+        - image: cesarmarti/badminton-app-organizations
           name: organizations
           ports:
             - containerPort: 8080
@@ -23,14 +23,16 @@ spec:
             httpGet:
               path: /health/live
               port: server
-            initialDelaySeconds: 30
+            initialDelaySeconds: 40
             periodSeconds: 3
-            readinessProbe:
-              httpGet:
-                path: /health/ready
-                port: server
-              initialDelaySeconds: 30
-              periodSeconds: 3
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: server
+            initialDelaySeconds: 40
+            periodSeconds: 3
+            timeoutSeconds: 5
 ---
 
 apiVersion: v1
@@ -38,7 +40,7 @@ kind: Service
 metadata:
   name: organizations
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 8080
       protocol: TCP

@@ -36,4 +36,4 @@ jobs:
       with:
         file: ./Dockerfile_with_maven_build
         push: true
-        tags: jbozic04/badminton-app-organizations:${{ steps.time.outputs.time }}
+        tags: jbozic04/badminton-app-organizations-ci:${{ steps.time.outputs.time }}
